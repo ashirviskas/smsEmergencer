@@ -1,5 +1,6 @@
 package ashirviskas.smsemergencer;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -36,9 +37,11 @@ import com.karumi.dexter.listener.single.SnackbarOnDeniedPermissionListener;
 public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS =0 ;
     private static final int MY_PERMISSIONS_REQUEST_READ_SMS =1 ;
+    EditText phoneNoETxt;
+    EditText SmsETxt;
     Button sendBtn;
     String phoneNo = "";
-    String message  = "sms";
+    String message = "";
     ReceiveSMS receiveSMS = new ReceiveSMS();
     private PermissionRequestErrorListener errorListener;
 
@@ -47,9 +50,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        phoneNoETxt = (EditText)findViewById(R.id.etxt_sms_number);
+        SmsETxt = (EditText)findViewById(R.id.etxt_sms_text);
         sendBtn = (Button) findViewById(R.id.btnSendSMS);
         sendBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                phoneNo = phoneNoETxt.getText().toString();
+                message = SmsETxt.getText().toString();
                 sendSMS();
             }
         });
@@ -73,6 +80,11 @@ public class MainActivity extends AppCompatActivity {
                             "You need to turn on the SEND SMS permission manually", Toast.LENGTH_LONG).show();}
                 }).withErrorListener(errorListener).check();
 
+    }
+
+    public void btnSettings_onClick(View view) {
+        Intent intent=new Intent(this,SettingsActivity.class);
+        startActivity(intent);
     }
 
     /*protected void sendSMSMessageP() {
