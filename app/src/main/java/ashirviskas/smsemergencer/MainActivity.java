@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         SmsManager smsManager = SmsManager.getDefault();
                         smsManager.sendTextMessage(phoneNo, null, message, null, null);
                         Toast.makeText(getApplicationContext(),
-                                "SMS send permission granted", Toast.LENGTH_LONG).show();
+                                "SMS send permission is granted", Toast.LENGTH_LONG).show();
                     }
                     @Override public void onPermissionDenied(PermissionDeniedResponse response) {
                         Toast.makeText(getApplicationContext(),
