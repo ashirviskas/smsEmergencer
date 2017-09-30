@@ -19,6 +19,32 @@
 
     <string name="pref_title_triggerword_do_beep">Trigger word</string>
     <string name="pref_default_triggerword_do_beep">pyp</string>
+    <string name="pref_title_do_beep_length">Beep length</string>
+    <string name="pref_title_do_beep_frequency">Beep frequency</string>
+
+
+    <string-array name="pref_beep_lengths">
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+        <item>8</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>30</item>
+        <item>60</item>
+    </string-array>
+    <string-array name="pref_beep_tones">
+        <item>440</item>
+        <item>600</item>
+        <item>880</item>
+        <item>1200</item>
+        <item>2000</item>
+        <item>3000</item>
+        <item>4000</item>
+        <item>6000</item>
+        <item>8000</item>
+    </string-array>
 
     <string name="pref_title_display_name">Display name</string>
     <string name="pref_default_display_name">John Smith</string>

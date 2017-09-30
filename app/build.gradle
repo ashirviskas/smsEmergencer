@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "ashirviskas.smsemergencer"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -24,6 +24,10 @@ repositories {
         url 'https://maven.google.com' //for GPS 11.2.0
         // Alternative URL is 'https://dl.google.com/dl/android/maven2/'
     }
+    maven
+            {
+                url "https://jitpack.io"
+            }
 }
 
 dependencies {
@@ -40,5 +44,6 @@ dependencies {
     compile 'io.nlopez.smartlocation:library:3.3.2'
     compile 'com.android.support:support-v4:26.+'
     compile 'com.android.support:support-vector-drawable:26.+'
+    compile 'com.github.karlotoy:perfectTune:1.0.2'
     testCompile 'junit:junit:4.12'
 }

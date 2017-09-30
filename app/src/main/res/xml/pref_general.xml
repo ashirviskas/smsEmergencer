@@ -16,6 +16,7 @@
         android:singleLine="true"
         android:title="@string/pref_title_triggerword_send_location" />
 
+
     <SwitchPreference
         android:defaultValue="true"
         android:key="do_beep_switch"
@@ -27,11 +28,25 @@
         android:capitalize="words"
         android:defaultValue="@string/pref_default_triggerword_do_beep"
         android:inputType="textCapWords"
-        android:key="send_location_trigger"
+        android:key="do_beep_trigger"
         android:maxLines="1"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="@string/pref_title_triggerword_do_beep" />
+
+    <ListPreference
+        android:defaultValue="5"
+        android:entries="@array/pref_beep_lengths"
+        android:entryValues="@array/pref_beep_lengths"
+        android:key="do_beep_length"
+        android:title="@string/pref_title_do_beep_length" />
+
+    <ListPreference
+        android:defaultValue="880"
+        android:entries="@array/pref_beep_tones"
+        android:entryValues="@array/pref_beep_tones"
+        android:key="do_beep_frequency"
+        android:title="@string/pref_title_do_beep_frequency" />
 
     <!-- NOTE: EditTextPreference accepts EditText attributes. -->
     <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
