@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.telephony.SmsMessage;
+
 import io.nlopez.smartlocation.OnActivityUpdatedListener;
 import io.nlopez.smartlocation.OnGeofencingTransitionListener;
 import io.nlopez.smartlocation.OnLocationUpdatedListener;
@@ -41,29 +42,31 @@ public class ReceiveSMS extends BroadcastReceiver {
                 /* Parse Each Message */
                 SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) sms[i]);
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-                String trigger_location = prefs.getString("send_location_trigger","xxx").toLowerCase();
-                String trigger_beep = prefs.getString("do_beep_trigger","xxx").toLowerCase();
+                String trigger_location = prefs.getString("send_location_trigger", "xxx").toLowerCase();
+                String trigger_beep = prefs.getString("do_beep_trigger", "xxx").toLowerCase();
                 boolean should_beep = prefs.getBoolean("do_beep_switch", false);
 
-                //Toast.makeText(context.getApplicationContext(),trigger_beep,Toast.LENGTH_SHORT).show();
                 String phone = smsMessage.getOriginatingAddress();
                 String message = smsMessage.getMessageBody();
-                if (message.toLowerCase().contains(trigger_beep) && should_beep)
-                {
-                    int beep_freq = Integer.parseInt(prefs.getString("do_beep_frequency","880").toLowerCase());
-                    int beep_lenght = Integer.parseInt(prefs.getString("do_beep_length","xxx").toLowerCase());
-                    do_beep(beep_lenght*1000,beep_freq);
-
-                }
                 Toast.makeText(context.getApplicationContext(), phone + ": " + message, Toast.LENGTH_SHORT).show();
+                if (message.toLowerCase().contains(trigger_beep) && should_beep) {
+                    do_beep(context, prefs);
+                }
             }
         }
     }
-    public void do_beep(int length, int frequency){
+
+    public void do_beep(Context context, SharedPreferences prefs) {
+
+
+        AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        am.setStreamVolume(AudioManager.STREAM_MUSIC, am.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
+        int beep_freq = Integer.parseInt(prefs.getString("do_beep_frequency", "880").toLowerCase());
+        int beep_length = Integer.parseInt(prefs.getString("do_beep_length", "xxx").toLowerCase());
         PerfectTune perfectTune = new PerfectTune();
-        perfectTune.setTuneFreq(frequency);
+        perfectTune.setTuneFreq(beep_freq);
         perfectTune.playTune();
-        SystemClock.sleep(length);
+        SystemClock.sleep(beep_length * 1000);
         perfectTune.stopTune();
     }
     /*public void sendLocationBack(Context context, String NumberToSend){
