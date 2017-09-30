@@ -17,10 +17,10 @@
     <string name="pref_title_do_beep">Do a loud beep</string>
     <string name="pref_description_do_beep">Does a loud beep</string>
 
-    <string name="pref_title_triggerword_do_beep">Trigger word</string>
+    <string name="pref_title_triggerword_do_beep">Beep trigger word</string>
     <string name="pref_default_triggerword_do_beep">pyp</string>
-    <string name="pref_title_do_beep_length">Beep length</string>
-    <string name="pref_title_do_beep_frequency">Beep frequency</string>
+    <string name="pref_title_do_beep_length">Beep length (s)</string>
+    <string name="pref_title_do_beep_frequency">Beep frequency (Hz)</string>
 
 
     <string-array name="pref_beep_lengths">
