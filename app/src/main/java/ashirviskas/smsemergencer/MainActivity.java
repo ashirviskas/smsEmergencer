@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
@@ -34,12 +35,15 @@ import com.karumi.dexter.listener.single.DialogOnDeniedPermissionListener;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.karumi.dexter.listener.single.SnackbarOnDeniedPermissionListener;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS =0 ;
     private static final int MY_PERMISSIONS_REQUEST_READ_SMS =1 ;
     EditText phoneNoETxt;
     EditText SmsETxt;
     Button sendBtn;
+    Button grantPermissionsBtn;
     String phoneNo = "";
     String message = "";
     ReceiveSMS receiveSMS = new ReceiveSMS();
@@ -53,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         phoneNoETxt = (EditText)findViewById(R.id.etxt_sms_number);
         SmsETxt = (EditText)findViewById(R.id.etxt_sms_text);
         sendBtn = (Button) findViewById(R.id.btnSendSMS);
+        grantPermissionsBtn = (Button)findViewById(R.id.btnGrantSMSpermissions);
         sendBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 phoneNo = phoneNoETxt.getText().toString();
@@ -60,8 +65,39 @@ public class MainActivity extends AppCompatActivity {
                 sendSMS();
             }
         });
-    }
+        grantPermissionsBtn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                grantSMSReadSend();
+            }
 
+        });
+    }
+    protected void grantSMSReadSend()
+    {
+        Dexter.withActivity(this)
+                .withPermissions(Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        //SmsManager smsManager = SmsManager.getDefault();
+                        //smsManager.sendTextMessage(phoneNo, null, message, null, null);
+                        /*Toast.makeText(getApplicationContext(),
+                                "SMS send permission is granted", Toast.LENGTH_LONG).show();*/
+                    }
+                    /*@Override public void onPermissionDenied(PermissionDeniedResponse response) {
+                        Toast.makeText(getApplicationContext(),
+                                "No permission to send SMS", Toast.LENGTH_LONG).show();
+                    }*/
+                    @Override public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        for (PermissionRequest onePermission : permissions){
+                            Toast.makeText(getApplicationContext(), onePermission.getName(), Toast.LENGTH_LONG).show();
+                        }
+                        /*Toast.makeText(getApplicationContext(),
+                            "You need to turn on the SEND SMS permission manually", Toast.LENGTH_LONG).show();}*/
+                    }
+                }).check();
+
+
+    }
     protected void sendSMS() {
         Dexter.withActivity(this)
                 .withPermission(Manifest.permission.SEND_SMS)

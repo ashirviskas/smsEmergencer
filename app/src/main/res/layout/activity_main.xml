@@ -26,7 +26,7 @@
         android:layout_marginTop="0dp"
         android:background="@android:color/transparent"
         android:ems="10"
-        android:inputType="text|textPersonName"
+        android:inputType="text"
         android:text="+3706"
         android:textSize="18sp"
         android:visibility="visible" />
@@ -47,13 +47,16 @@
         android:id="@+id/btnSendSMS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="34dp"
         android:text="Test" />
+    <Button
+        android:id="@+id/btnGrantSMSpermissions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Grant SMS permissions" />
     <Button
         android:id="@+id/btnSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="34dp"
         android:text="Settings"
         android:onClick="btnSettings_onClick"/>
 

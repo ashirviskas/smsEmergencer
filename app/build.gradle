@@ -38,8 +38,8 @@ dependencies {
     })
     // for easy permission management. https://github.com/Karumi/Dexter
     // for easier location management. https://github.com/mrmans0n/smart-location-lib
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
+    //compile 'com.android.support:appcompat-v7:25.3.1'
+    //compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
     compile 'com.karumi:dexter:4.1.0'
     compile 'io.nlopez.smartlocation:library:3.3.2'
     compile 'com.android.support:support-v4:26.+'

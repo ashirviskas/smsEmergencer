@@ -61,6 +61,7 @@ public class ReceiveSMS extends BroadcastReceiver {
 
         AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         am.setStreamVolume(AudioManager.STREAM_MUSIC, am.getStreamMaxVolume(AudioManager.STREAM_MUSIC), 0);
+        am.setStreamVolume(AudioManager.STREAM_RING, am.getStreamMaxVolume(AudioManager.STREAM_RING), 0);
         int beep_freq = Integer.parseInt(prefs.getString("do_beep_frequency", "880").toLowerCase());
         int beep_length = Integer.parseInt(prefs.getString("do_beep_length", "xxx").toLowerCase());
         PerfectTune perfectTune = new PerfectTune();
