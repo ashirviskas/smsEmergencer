@@ -1,6 +1,9 @@
 package ashirviskas.smsemergencer;
 
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     Button grantPermissionsBtn;
     String phoneNo = "";
     String message = "";
+    FloatingActionButton settingsButton;
     ReceiveSMS receiveSMS = new ReceiveSMS();
     private PermissionRequestErrorListener errorListener;
 
@@ -58,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         SmsETxt = (EditText)findViewById(R.id.etxt_sms_text);
         sendBtn = (Button) findViewById(R.id.btnSendSMS);
         grantPermissionsBtn = (Button)findViewById(R.id.btnGrantSMSpermissions);
+        settingsButton = (FloatingActionButton)findViewById(R.id.btnSettings0);
         sendBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 phoneNo = phoneNoETxt.getText().toString();
@@ -75,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     protected void grantSMSReadSend()
     {
         Dexter.withActivity(this)
-                .withPermissions(Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS)
+                .withPermissions(Manifest.permission.SEND_SMS, Manifest.permission.READ_SMS, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION)
                 .withListener(new MultiplePermissionsListener() {
                     @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
                         //SmsManager smsManager = SmsManager.getDefault();
@@ -122,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=new Intent(this,SettingsActivity.class);
         startActivity(intent);
     }
+
 
     /*protected void sendSMSMessageP() {
         if (ContextCompat.checkSelfPermission(this,
