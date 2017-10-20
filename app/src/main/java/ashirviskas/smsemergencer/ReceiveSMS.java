@@ -4,21 +4,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.media.AudioManager;
-import android.media.ToneGenerator;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 
-import io.nlopez.smartlocation.OnActivityUpdatedListener;
-import io.nlopez.smartlocation.OnGeofencingTransitionListener;
-import io.nlopez.smartlocation.OnLocationUpdatedListener;
-import io.nlopez.smartlocation.OnReverseGeocodingListener;
-import io.nlopez.smartlocation.SmartLocation;
-import io.nlopez.smartlocation.geofencing.model.GeofenceModel;
-import io.nlopez.smartlocation.geofencing.utils.TransitionGeofence;
-import io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesProvider;
+
 
 /**
  * Created by Matas on 2017-08-21.
@@ -26,13 +20,20 @@ import io.nlopez.smartlocation.location.providers.LocationGooglePlayServicesProv
 
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.karlotoy.perfectune.instance.PerfectTune;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 public class ReceiveSMS extends BroadcastReceiver {
     private SharedPreferences preferences;
+    private FusedLocationProviderClient mFusedLocationClient;
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(context);
         Bundle intentExtras = intent.getExtras();
         if (intentExtras != null) {
             /* Get Messages */
@@ -70,12 +71,27 @@ public class ReceiveSMS extends BroadcastReceiver {
         SystemClock.sleep(beep_length * 1000);
         perfectTune.stopTune();
     }
-    /*public void sendLocationBack(Context context, String NumberToSend){
-        SmartLocation.with(context).location()
-                .oneFix()
-                .start(new OnLocationUpdatedListener() { ... });
+    public void sendLocationBack(Context context, String NumberToSend){
+//        Location lastloc = getLocation(context);
+//        sendSMS("+37066254126",lastloc.getLongitude()+"  " + lastloc.getLatitude()+"");
 
+    }
+    /*public Location getLocation(Context context){
+        Location loc = null;
+
+        try {
+            int x = 0;
+            loc = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);;//.getResult();
+        }
+        catch (SecurityException e){
+        }
+        return loc;
     }*/
+    public void sendSMS(String phoneNo, String message)
+    {
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phoneNo, null, message, null, null);
+    }
 
 
 }

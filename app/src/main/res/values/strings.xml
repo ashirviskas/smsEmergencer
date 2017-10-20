@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">smsEmergencer</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="pref_above_permissions_button_text">To be able to read codewords, we need you to grant our app SMS permissions. Please click the button below:</string>
 
     <!-- Strings related to Settings -->
 
